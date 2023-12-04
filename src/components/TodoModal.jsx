@@ -18,7 +18,6 @@ const TodoModal = ({
   const [messageApi, contextHolder] = message.useMessage();
 
   const dispatch = useDispatch(); // dispatch some action from our todoSlice
-  console.log(description);
   const handleCancel = () => {
     if (title.toLowerCase().includes("update")) {
       setDescription(todo?.description);

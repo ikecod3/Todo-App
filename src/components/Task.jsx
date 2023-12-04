@@ -58,7 +58,7 @@ const Task = ({ todo }) => {
 
   return (
     <>
-      <div className=" text p-4 even:bg-cyan-50 odd:bg-stone-50 rounded-xl mx-2">
+      <div className=" text p-4 even:bg-cyan-50 odd:bg-stone-50 rounded-xl mx-2 my-2">
         <div className="flex flex-wrap justify-between items-center sm:justify-between my-4 rounded-lg sm:flex-row ">
           {/* This div represents a task item container, displaying a checkbox along with the task description. The checkbox serves as a toggle for marking the task as done or undone, triggering the toggleTodoStatus function. The task description is displayed with an optional line-through decoration based on its completion status. */}
           <div className="flex justify-center items-center align-middle">
@@ -83,9 +83,9 @@ const Task = ({ todo }) => {
             Render a Button component for task complted, displayed conditionally based on the task's completion status. - The button triggers the showModal function on click.
             - The button is disabled if the task is already marked as done.
             */}
-            <Tooltip title="task completed">
+            <Tooltip title="task completed" placement="bottomRight">
               <Button
-                className="border-0 text-lg h-full !text-green-300"
+                className="border-0 text-lg h-full !text-green-300  "
                 disabled={todo.isDone}
                 style={{
                   display: todo.isDone ? "inline-block" : "none",
@@ -112,11 +112,11 @@ const Task = ({ todo }) => {
             {/* delete button is here 
             Delete Task Button: - The Button component renders a clickable button. - onClick and onKeyDown event handlers trigger the handleDelete function. - The className sets the styling for the button, including height, border, and text color. - The DeleteOutlined component renders an icon within the button.
             */}
-            <Tooltip title="delete Task" color="red">
+            <Tooltip title="delete Task" color="red" placement="bottomLeft">
               <Button
                 onClick={handleDelete}
                 onKeyDown={handleDelete}
-                className="h-full border-0 text-red-600 text-xl"
+                className="border-0 text-red-600 text-xl"
               >
                 <DeleteOutlined />
               </Button>
