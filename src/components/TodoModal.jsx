@@ -6,15 +6,28 @@ import { nanoid } from "@reduxjs/toolkit";
 import validator from "validator";
 import { Select, Modal, Input, message } from "antd";
 
-const TodoModal = ({ visible, setIsModalOpen, title, todo, inputFocus }) => {
+const TodoModal = ({
+  visible,
+  setIsModalOpen,
+  title,
+  todo,
+  modalActionButton,
+}) => {
   const [description, setDescription] = useState(todo?.description || "");
   const [isDone, setIsDone] = useState(todo?.isDone || false);
   const [messageApi, contextHolder] = message.useMessage();
 
   const dispatch = useDispatch(); // dispatch some action from our todoSlice
-
+  console.log(description);
   const handleCancel = () => {
-    setDescription(todo?.description);
+    if (title.toLowerCase().includes("update")) {
+      setDescription(todo?.description);
+      setIsDone(todo?.isDone);
+      setIsModalOpen(false);
+      return;
+    }
+
+    setDescription("");
     setIsDone(false);
     setIsModalOpen(false);
   };
@@ -30,7 +43,9 @@ const TodoModal = ({ visible, setIsModalOpen, title, todo, inputFocus }) => {
             isDone,
           })
         );
-        handleCancel(); // Close the modal
+
+        // handleCancel(); // Close the modal
+        setIsModalOpen(false); // close the modal
         return;
       }
 
@@ -44,7 +59,7 @@ const TodoModal = ({ visible, setIsModalOpen, title, todo, inputFocus }) => {
       );
     }
 
-    if (validator.isEmpty(description)) {
+    if (validator.isEmpty(description) || /^\s*$/.test(description)) {
       messageApi.open({
         type: "error",
         content: "Please provide a todo Task",
@@ -67,13 +82,13 @@ const TodoModal = ({ visible, setIsModalOpen, title, todo, inputFocus }) => {
         onOk={handleOk}
         onCancel={handleCancel}
         open={visible}
+        okText={modalActionButton}
         focusTriggerAfterClose={false}
       >
         {contextHolder}
         <div className="space-y-2 text-xl">
           <label className="text-lg">Title</label>
           <Input
-            ref={inputFocus}
             placeholder="Write your task here"
             value={description}
             onChange={(e) => setDescription(e.target.value)}

@@ -63,6 +63,7 @@ const AddTask = () => {
         visible={isModalOpen}
         title={"Add"}
         setIsModalOpen={setIsModalOpen}
+        modalActionButton={"Add Task"}
       />
     </div>
   );

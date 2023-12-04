@@ -58,8 +58,8 @@ const Task = ({ todo }) => {
 
   return (
     <>
-      <div className=" text p-4 even:bg-cyan-100 odd:bg-slate-20 rounded-lg  mx-2">
-        <div className="flex flex-wrap justify-between items-center my-3 rounded-lg space-y-6 sm:space-y-0 ">
+      <div className=" text p-4 even:bg-cyan-50 odd:bg-stone-50 rounded-xl mx-2">
+        <div className="flex flex-wrap justify-between items-center sm:justify-between my-4 rounded-lg sm:flex-row ">
           {/* This div represents a task item container, displaying a checkbox along with the task description. The checkbox serves as a toggle for marking the task as done or undone, triggering the toggleTodoStatus function. The task description is displayed with an optional line-through decoration based on its completion status. */}
           <div className="flex justify-center items-center align-middle">
             <Checkbox
@@ -70,14 +70,15 @@ const Task = ({ todo }) => {
               checked={todo.isDone}
               onChange={toggleTodoStatus}
             >
-              <p className="max-w-[16rem] text-xl">{todo.description}</p>
+              <p className="max-w-[10rem]  text-xl">{todo.description}</p>
             </Checkbox>
           </div>
           {/* Time created paragraph is here -- it render a  functional component named relativeTime with passed-in prop time created. It displays the creation timestamp of the todo item with a faded appearance */}
-          <p className="opacity-30">
+          <p className="opacity-30 sm:inline-block hidden">
             Created at <RelativeTime time={todo.timeCreated} />
           </p>
-          <div className="mx-4 space-x-8">
+
+          <div className="flex justify-around gap-8 align-middle">
             {/* Checked task completed button is here
             Render a Button component for task complted, displayed conditionally based on the task's completion status. - The button triggers the showModal function on click.
             - The button is disabled if the task is already marked as done.
@@ -97,18 +98,16 @@ const Task = ({ todo }) => {
             {/*Edit task button is here
             Edit Task Button: Render a Button component for editing a task, displayed conditionally based on the task's completion status. - The button triggers the showModal function on click.
             - The button is disabled if the task is already marked as done*/}
-            <Tooltip title="edit task" color="blue">
-              <Button
-                className=" border-0 text-blue-800"
-                onClick={showModal}
-                disabled={todo.isDone}
-                style={{
-                  display: todo.isDone ? "none" : "inline-block",
-                }}
-              >
-                <EditOutlined />
-              </Button>
-            </Tooltip>
+            <Button
+              className="h-full border-0 text-blue-800 text-xl"
+              onClick={showModal}
+              disabled={todo.isDone}
+              style={{
+                display: todo.isDone ? "none" : "inline-block",
+              }}
+            >
+              <EditOutlined />
+            </Button>
 
             {/* delete button is here 
             Delete Task Button: - The Button component renders a clickable button. - onClick and onKeyDown event handlers trigger the handleDelete function. - The className sets the styling for the button, including height, border, and text color. - The DeleteOutlined component renders an icon within the button.
@@ -137,6 +136,7 @@ const Task = ({ todo }) => {
         setIsModalOpen={setIsModalOpen}
         title={"Update"}
         todo={todo}
+        modalActionButton={"Update Task"}
       />
     </>
   );
